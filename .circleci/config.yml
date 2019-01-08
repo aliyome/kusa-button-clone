@@ -23,7 +23,7 @@ jobs:
           working_directory: front
       - run:
           name: test
-          command: yarn test:ci
+          command: yarn test:ci --code-coverage
           working_directory: front
       - run:
           name: e2e
@@ -47,4 +47,8 @@ jobs:
       - run:
           name: deploy
           command: yarn deploy
+          working_directory: front
+      - run:
+          name: codecov
+          command: yarn codecov
           working_directory: front

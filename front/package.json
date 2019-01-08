@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --protractor-config e2e/protractor.conf.circleci.js",
-    "deploy": "firebase deploy --token=$FIREBASE_TOKEN"
+    "deploy": "firebase deploy --token=$FIREBASE_TOKEN",
+    "codecov": "codecov --token=$CODECOV_TOKEN"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +39,7 @@
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "codecov": "^3.1.0",
     "codelyzer": "~4.5.0",
     "firebase-tools": "^6.2.2",
     "jasmine-core": "~2.99.1",
