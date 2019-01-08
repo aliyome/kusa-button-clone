@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "front/package.json" }}
+      - run:
+          name: restore npm packages
+          command: yarn
+          working_directory: front
+      - save_cache:
+          paths:
+            - node_modules
+          key: npm-{{ checksum "front/package.json" }}
+      - run:
+          name: lint
+          command: yarn lint
+          working_directory: front
+      - run:
+          name: test
+          command: yarn test:ci
+          working_directory: front
+      - run:
+          name: e2e
+          command: yarn e2e:ci
+          working_directory: front
