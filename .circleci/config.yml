@@ -8,15 +8,15 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - npm-{{ checksum "front/package.json" }}
+            - front-npm-{{ checksum "front/package.json" }}
       - run:
           name: restore npm packages
           command: yarn
           working_directory: front
       - save_cache:
           paths:
-            - node_modules
-          key: npm-{{ checksum "front/package.json" }}
+            - front/node_modules
+          key: front-npm-{{ checksum "front/package.json" }}
       - run:
           name: lint
           command: yarn lint
@@ -28,4 +28,23 @@ jobs:
       - run:
           name: e2e
           command: yarn e2e:ci
+          working_directory: front
+      - run:
+          name: build
+          command: yarn build --prod
+          working_directory: front
+      - restore_cache:
+          keys:
+            - functions-npm-{{ checksum "functions/package.json" }}
+      - run:
+          name: restore functions npm packages
+          command: yarn
+          working_directory: functions
+      - save_cache:
+          paths:
+            - functions/node_modules
+          key: functions-npm-{{ checksum "functions/package.json" }}
+      - run:
+          name: deploy
+          command: yarn deploy
           working_directory: front
